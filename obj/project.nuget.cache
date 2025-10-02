@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "q8l14a+2stk=",
+  "success": true,
+  "projectFilePath": "/home/kurisu/programing/IT_CSU/IT_CSU/IT_CSU.csproj",
+  "expectedPackageFiles": [
+    "/home/kurisu/.nuget/packages/microsoft.aspnetcore.app.ref/9.0.9/microsoft.aspnetcore.app.ref.9.0.9.nupkg.sha512"
+  ],
+  "logs": []
+}
