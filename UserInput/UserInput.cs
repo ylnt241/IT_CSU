@@ -2,7 +2,6 @@
 using IT_CSU.Numbers;
 
 namespace IT_CSU;
-
 public class UserInput
 {
     public static readonly char Separator = ';';

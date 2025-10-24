@@ -1,46 +1,48 @@
 ﻿using IT_CSU.Numbers;
-
 namespace IT_CSU;
 
 internal class Program
 {
     public const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
+    public static void Main()
+    {
         do
         {
 
-                var result = "";
-                byte finalBase = 0;
-                var operation = UserInput.GetInputOfOperation();
+            var result = "";
+            byte finalBase = 0;
+            var operation = UserInput.GetInputOfOperation();
 
-                switch (operation)
+            switch (operation)
+            {
+                case Operation.Add:
                 {
-                    case Operation.Add:
-                    {
-                        (result, finalBase) = NumbersAddition();
-                        break;
-                    }
-                    case Operation.Multiply:
-                    {
-                        (result, finalBase) = NumbersMultiply();
-                        break;
-                    }
-                    case Operation.Convertion:
-                        byte oldBase;
-                        (result, oldBase, finalBase) = NumberConvertion();
-                        break;
+                    (result, finalBase) = NumbersAddition();
+                    break;
                 }
+                case Operation.Multiply:
+                {
+                    (result, finalBase) = NumbersMultiply();
+                    break;
+                }
+                case Operation.Convertion:
+                    byte oldBase;
+                    (result, oldBase, finalBase) = NumberConvertion();
+                    break;
+            }
 
-                Console.WriteLine($"Результат: {result},[{finalBase}]");
-                Console.Write("Press <1> to convert another number or any other key to exit...");
-                var exit = Console.ReadKey();
-                Console.WriteLine("");
-                if (exit.KeyChar != '1') break;
+            Console.WriteLine($"Результат: {result},[{finalBase}]");
+            Console.Write("Press <1> to convert another number or any other key to exit...");
+            var exit = Console.ReadKey();
+            Console.WriteLine("");
+            if (exit.KeyChar != '1') break;
         } while (true);
 
     }
 
-    private static (string, byte) NumbersAddition()
+
+private static (string, byte) NumbersAddition()
     {
         var (firstNumber, firstNumberBase, secondNumber, secondNumberBase, finalBase) =
             UserInput.InputForAddAndMultiply();
