@@ -7,45 +7,6 @@ public class UserInput
 {
     public static readonly char Separator = ';';
 
-    // public static (string, byte, byte) GetInput()
-    // {
-    //     byte origBase = 0;
-    //     byte newBase = 0;
-    //     string numberToConvert = "";
-    //     
-    //     do
-    //     {
-    //         try
-    //         {
-    //             Console.Write("Введите число: ");
-    //             string? number = Console.ReadLine();
-    //             if (number.IsNullOrEmpty() || number.ContainsUnavailableSymbols()) continue;
-    //
-    //             Console.Write("Введите изначальную систему счисления: ");
-    //             string? inputOfOrigBase = Console.ReadLine();
-    //             if (inputOfOrigBase.IsNullOrEmpty() || inputOfOrigBase.ContainsUnavailableSymbols()) continue;
-    //             origBase = ConvertBaseToByte(inputOfOrigBase);
-    //
-    //             Console.Write("Введите новую систему счисления: ");
-    //             string? inputOfNewBase = Console.ReadLine();
-    //             if (inputOfNewBase.IsNullOrEmpty() || inputOfNewBase.ContainsUnavailableSymbols()) continue;
-    //             newBase = ConvertBaseToByte(inputOfNewBase);
-    //
-    //             if (ValidateNumbers.IsValidNumber(number, origBase))
-    //             {
-    //                 numberToConvert = number;
-    //                 break;
-    //             }
-    //         }
-    //         catch
-    //         {
-    //             continue;
-    //         }
-    //     } while (true);
-    //
-    //     return (numberToConvert, origBase, newBase);
-    // }
-
 
     public static Operation GetInputOfOperation()
     {
@@ -79,7 +40,7 @@ public class UserInput
             }
         } while (true);
     }
-        
+
     public static (string, byte, string, byte, byte) InputForAddAndMultiply()
     {
         Console.Write("Введите первое число: ");
@@ -148,5 +109,5 @@ public class UserInput
             }
         } while (true);
     }
-        
+
 }
