@@ -15,37 +15,27 @@ public static class StringExtensions
 
     }
 
-    public static string TakeNumber(this string str, char separator)
+    public static string TakeNumber(this string str)
     {
-        return str.Split(separator)[0];
+        return str.Split(UserInput.UserInput.Separator)[0];
     }
-    public static string TakeOldBase(this string str, char separator)
+    public static string TakeOldBase(this string str)
     {
-        return str.Split(separator)[1];
+        return str.Split(UserInput.UserInput.Separator)[1];
     }
-    public static string TakeNewBase(this string str, char separator)
+    public static string TakeNewBase(this string str)
     {
-        return str.Split(separator)[2];
+        return str.Split(UserInput.UserInput.Separator)[2];
     }
 
-    public static (string, string, string) SplitInput(this string str, char separator)
+    public static (string number, string oldBase, string newBase) SplitInput(this string str)
     {
-        string number = str.TakeNumber(separator);
-        string oldBase = str.TakeOldBase(separator);
-        string newBase = str.TakeNewBase(separator);
+      
+        string[] stringSplited = str.Split(UserInput.UserInput.Separator);
+        string number = stringSplited[0], oldBase = stringSplited[1], newBase = stringSplited[2];
         return (number, oldBase, newBase);
     }
 
-    public static bool IsStringDigit(this string str)
-    {
-        foreach (char c in str)
-        {
-            if (!Char.IsDigit(c))
-                return false;
-        }
-
-        return true; 
-    }
     public static string WithOutDecimalPoint(this string str)
     {
         return str.Replace(".", "").Replace(",", "");
@@ -66,7 +56,6 @@ public static class StringExtensions
             {
                 valid = true;
                 sbUnavailableSymbols.Append(c);
-                continue;
             }
         }
         if (sbUnavailableSymbols.Length > 0) Console.WriteLine($"Вы не можете использовать эти символы: {sbUnavailableSymbols}");

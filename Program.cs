@@ -1,4 +1,7 @@
 ﻿using IT_CSU.Numbers;
+using IT_CSU.UserInput;
+using System.Globalization;
+
 namespace IT_CSU;
 
 internal class Program
@@ -9,10 +12,10 @@ internal class Program
     {
         do
         {
-
             var result = "";
             byte finalBase = 0;
-            var operation = UserInput.GetInputOfOperation();
+            byte? oldBase = 0;
+            var operation = UserInput.UserInput.GetInputOfOperation();
 
             switch (operation)
             {
@@ -26,32 +29,31 @@ internal class Program
                     (result, finalBase) = NumbersMultiply();
                     break;
                 }
-                case Operation.Convertion:
-                    byte oldBase;
-                    (result, oldBase, finalBase) = NumberConvertion();
+                case Operation.Conversion:
+                    (result, oldBase, finalBase) = NumberConversion();
                     break;
             }
 
-            Console.WriteLine($"Результат: {result},[{finalBase}]");
+            Console.WriteLine(oldBase > 0
+                ? $"Результат перевода из {oldBase}: {result},[{finalBase}]"
+                : $"Результат: {result},[{finalBase}]");
             Console.Write("Press <1> to convert another number or any other key to exit...");
             var exit = Console.ReadKey();
             Console.WriteLine("");
             if (exit.KeyChar != '1') break;
         } while (true);
-
     }
 
 
-private static (string, byte) NumbersAddition()
+    private static (string, byte) NumbersAddition()
     {
-        var (firstNumber, firstNumberBase, secondNumber, secondNumberBase, finalBase) =
-            UserInput.InputForAddAndMultiply();
-        var number1 = new Number();
-        var number2 = new Number();
-        number1.SetValues(firstNumber, firstNumberBase);
-        number2.SetValues(secondNumber, secondNumberBase);
-        var resultInDecimalSystem = number1.GetDecimalValue() + number2.GetDecimalValue();
-        var resultInDecimalSystemAsString = resultInDecimalSystem.ToString();
+        var (firstNumberValue, firstNumberBase, secondNumberValue, secondNumberBase, finalBase) =
+            UserInput.UserInput.InputForAddAndMultiply();
+        Number firstNumber = new Number(), secondNumber = new Number();
+        firstNumber.SetValues(firstNumberValue, firstNumberBase);
+        secondNumber.SetValues(secondNumberValue, secondNumberBase);
+        var resultInDecimalSystem = firstNumber.GetDecimalValue() + secondNumber.GetDecimalValue();
+        var resultInDecimalSystemAsString = resultInDecimalSystem.ToString(CultureInfo.InvariantCulture);
         var result = new NumberForConvertion();
         result.SetValues(resultInDecimalSystemAsString, 10, finalBase);
         return (result.GetValue(), finalBase);
@@ -60,23 +62,23 @@ private static (string, byte) NumbersAddition()
     private static (string, byte) NumbersMultiply()
     {
         var (firstNumber, firstNumberBase, secondNumber, secondNumberBase, finalBase) =
-            UserInput.InputForAddAndMultiply();
+            UserInput.UserInput.InputForAddAndMultiply();
         var number1 = new Number();
         var number2 = new Number();
         number1.SetValues(firstNumber, firstNumberBase);
         number2.SetValues(secondNumber, secondNumberBase);
         var resultInDecimalSystem = number1.GetDecimalValue() * number2.GetDecimalValue();
-        var resultInDecimalSystemAsString = resultInDecimalSystem.ToString();
+        var resultInDecimalSystemAsString = resultInDecimalSystem.ToString(CultureInfo.InvariantCulture);
         var result = new NumberForConvertion();
         result.SetValues(resultInDecimalSystemAsString, 10, finalBase);
         return (result.GetValue(), finalBase);
     }
 
-    private static (string, byte, byte) NumberConvertion()
+    private static (string, byte, byte) NumberConversion()
     {
-        var (number, oldBase, newBase) = UserInput.InputForConvert();
-        var numberForConvertion = new NumberForConvertion();
-        numberForConvertion.SetValues(number, oldBase, newBase);
-        return (numberForConvertion.GetValue(), oldBase, newBase);
+        var (number, oldBase, newBase) = UserInput.UserInput.InputForConvert();
+        var numberForConversion = new NumberForConvertion();
+        numberForConversion.SetValues(number, oldBase, newBase);
+        return (numberForConversion.GetValue(), oldBase, newBase);
     }
 }

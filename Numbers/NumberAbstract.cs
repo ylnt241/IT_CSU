@@ -3,8 +3,8 @@
 public abstract class NumberAbstract
 {
     protected bool IsNegativeNumber;
-    protected string Value { get; set; }
-    protected byte OldBase { get; set; }
+    protected string Value;
+    protected byte OldBase;
     protected decimal NumberAsDecimal {get;set;}
 
     // {

@@ -1,12 +1,11 @@
 ﻿using IT_CSU.Misc;
 using IT_CSU.Numbers;
 
-namespace IT_CSU;
+namespace IT_CSU.UserInput;
+
 public class UserInput
 {
     public static readonly char Separator = ';';
-
-
     public static Operation GetInputOfOperation()
     {
         Console.Clear();
@@ -17,25 +16,20 @@ public class UserInput
                 Console.WriteLine(
                     "Привет! Что ты хочешь сделать? \n1 - сложить два числа \n2 - умножить два числа\n3 - перевести число в другую систему счисления");
                 Console.Write("Выбор:");
-                string? userInput = Console.ReadLine();
+                string userInput = Console.ReadLine() ?? throw new InvalidOperationException();
                 if (userInput.IsNullOrEmpty()) continue;
                 Operation selectedOperation = userInput switch
                 {
                     "1" => Operation.Add,
                     "2" => Operation.Multiply,
-                    "3" => Operation.Convertion,
+                    "3" => Operation.Conversion,
                     _ => throw new InvalidOperationException()
                 };
                 return selectedOperation;
             }
-            catch (InvalidOperationException)
-            {
-                Console.WriteLine("Дружочек! Ты ткнул не ту цыфарку!");
-                continue;
-            }
             catch
             {
-                continue;
+                Console.WriteLine("Дружочек! Ты ткнул не ту цыфарку!");
             }
         } while (true);
     }
@@ -45,14 +39,14 @@ public class UserInput
         Console.Write("Введите первое число: ");
         string firstNumber = GetInputOfNumber();
         Console.Write("Введите основание системы счисления первого числа: ");
-        byte fisrtNumberBase = GetInputOfBase();
+        byte firstNumberBase = GetInputOfBase();
         Console.Write("Введите второе число: ");
         string secondNumber = GetInputOfNumber();
         Console.Write("Введите основание системы счисления второго числа: ");
         byte secondNumberBase = GetInputOfBase();
         Console.Write("Введите основание системы счисления итогового числа: ");
         byte finalNumberBase = GetInputOfBase();
-        return(firstNumber, fisrtNumberBase, secondNumber, secondNumberBase, finalNumberBase);
+        return(firstNumber, firstNumberBase, secondNumber, secondNumberBase, finalNumberBase);
     }
 
     public static (string, byte, byte) InputForConvert()
@@ -79,7 +73,7 @@ public class UserInput
         {
             try
             {
-                var number = Console.ReadLine();
+                string number = Console.ReadLine() ?? throw new InvalidOperationException();
                 if (number.IsNullOrEmpty() || number.ContainsUnavailableSymbols() || !number.ContainsOneOrLessDecimalPoint()) throw new ArgumentException();
                 return number;
             }
@@ -96,7 +90,7 @@ public class UserInput
         {
             try
             {
-                var inputOfBase = Console.ReadLine();
+                string inputOfBase = Console.ReadLine() ?? throw new InvalidOperationException();
                 if (inputOfBase.IsNullOrEmpty() || inputOfBase.ContainsUnavailableSymbols() || inputOfBase.Split(',', '.').Length > 1)
                     throw new FormatException();
                 var baseAsByte = ConvertBaseToByte(inputOfBase);
